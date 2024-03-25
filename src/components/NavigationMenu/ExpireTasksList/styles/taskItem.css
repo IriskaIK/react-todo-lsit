@@ -1,0 +1,48 @@
+.task-item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 42px;
+    background-color: #D9D9D9;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+    transition: box-shadow .1s linear;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.task-item:hover{
+
+    box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.25);
+}
+
+.task-name{
+    margin-left: 10px;
+}
+.task-actions{
+    gap: 10px;
+    display: flex;
+    justify-content: center;
+    color: #AEAEAE;
+    margin-right: 10px;
+    font-size: 18px;
+
+
+}
+
+.task-action-trash:hover{
+    transition: color .1s linear;
+    color: #E14A4A;
+    cursor: pointer;
+}
+
+.task-action-see:hover{
+    transition: color .1s linear;
+    color: #6390E2;
+    cursor: pointer;
+}
+
+.task-action-check:hover{
+    transition: color .1s linear;
+    color: #7D9A2A;
+    cursor: pointer;
+}

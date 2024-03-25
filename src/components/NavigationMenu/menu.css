@@ -1,0 +1,32 @@
+
+
+.menu{
+    background-color: #DFDFDF;
+    border-radius: 0 20px 20px 0;
+    height: 100%;
+    overflow: auto;
+    width: 340px;
+    position: absolute;
+}
+
+.search-bar-btn-container{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 25px;
+    gap: 20px;
+}
+
+
+.container{
+    margin: auto;
+    width: 80%;
+}
+
+.splitter{
+    color: #CACACA;
+    border-width: 1px;
+    border-style: solid;
+    margin: 15px 0;
+}
+

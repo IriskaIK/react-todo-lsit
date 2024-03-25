@@ -1,0 +1,17 @@
+.lists-title{
+    font-size: 24px;
+    margin-bottom: 12px;
+}
+
+.list-items-container{
+    display: flex;
+    gap: 12px;
+    font-size: 16px;
+    flex-direction: column;
+}
+
+.more-btn{
+    font-size: 20px;
+    color: #6390E2;
+    cursor: pointer;
+}
