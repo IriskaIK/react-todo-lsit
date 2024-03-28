@@ -1,0 +1,20 @@
+.list-title{
+    font-size: 36px;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+.date-field{
+    font-size: 16px;
+    color: #AEAEAE;
+}
+
+.edit-icon{
+    font-size: 30px;
+    color: #AEAEAE;
+    transition: color .1s linear;
+}
+.edit-icon:hover{
+    cursor: pointer;
+    color: #6390E2;
+}

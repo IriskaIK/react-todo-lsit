@@ -1,0 +1,134 @@
+
+.task-editor-container{
+    width: 100%;
+    margin: 40px;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 50px;
+}
+.task-editor-block{
+    display: flex;
+    gap: 50px;
+}
+
+
+.name-input-container{
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 6px;
+
+        height: 50px;
+        width: 320px;
+        border-radius: 10px;
+        background-color: #D9D9D9;
+        box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+        transition: box-shadow .1s linear;
+}
+.name-input-title{
+    font-size: 30px;
+}
+
+.name-input-container:hover{
+    box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.25);
+}
+
+.name-input-field{
+    all: unset;
+    width: 100%;
+    height: 100%;
+    margin: 0 5px;
+}
+.name-input-field::placeholder {
+    color: #AEAEAE;
+    font-size: 20px;
+}
+
+
+
+.desc-input-container{
+
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+
+    height: 320px;
+    width: 320px;
+    border-radius: 10px;
+    background-color: #D9D9D9;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+    transition: box-shadow .1s linear;
+}
+
+.desc-input-title{
+    font-size: 30px;
+}
+
+.desc-input-container:hover{
+    box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.25);
+}
+.desc-input-field{
+    max-width: 100%;
+    height: 310px;
+    margin: 0 5px;
+    font-size: 20px;
+    resize: unset;
+    border: 0;
+    background: inherit;
+}
+
+.desc-input-field:focus-visible{
+    outline: 0;
+}
+.desc-input-field::placeholder {
+    color: #AEAEAE;
+    font-size: 20px;
+}
+
+
+
+
+
+
+
+
+
+
+.datetime-input-container{
+
+    display: flex;
+    justify-content: center;
+    gap: 6px;
+
+    height: 50px;
+    width: 100%;
+    border-radius: 10px;
+    background-color: #D9D9D9;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+    transition: box-shadow .1s linear;
+}
+
+.datetime-input-title{
+    font-size: 30px;
+}
+
+.datetime-input-container:hover{
+    box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.25);
+}
+.datetime-input-field{
+    margin: 0 5px;
+    font-size: 20px;
+    resize: unset;
+    border: 0;
+    background: inherit;
+}
+
+.datetime-input-field:focus-visible{
+    outline: 0;
+}
+.datetime-input-field::placeholder {
+    color: #AEAEAE;
+    font-size: 20px;
+}

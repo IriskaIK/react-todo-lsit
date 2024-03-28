@@ -3,20 +3,18 @@ import ListItem from "./ListItem";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faCircleArrowDown} from "@fortawesome/free-solid-svg-icons";
+import useStore from "../../../store/store";
+import {useEffect} from "react";
 
 function ToDoLists(){
 
-    let lists: { name: string, id: number }[] = [
-        { name: "List 1", id: 1 },
-        { name: "List 2", id: 2 },
-        { name: "List 3", id: 3 },
-        { name: "List 2", id: 2 },
-        { name: "List 3", id: 3 },
-        { name: "List 2", id: 2 },
-        { name: "List 3", id: 3 },
-        { name: "List 2", id: 2 },
-        { name: "List 3", id: 3 }
-    ];
+    const { lists } = useStore((state) => ({
+        lists: state.lists
+    }));
+
+
+
+
 
     const displayedLists = lists.slice(0, 5);
 

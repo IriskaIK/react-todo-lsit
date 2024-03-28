@@ -1,9 +1,14 @@
 .lists-title{
     font-size: 24px;
+
 }
 .tasks-items-container{
     display: flex;
     gap: 12px;
     font-size: 16px;
     flex-direction: column;
+}
+
+.block-title{
+
 }

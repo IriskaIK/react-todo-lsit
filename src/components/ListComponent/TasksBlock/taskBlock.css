@@ -1,0 +1,15 @@
+.task-block{
+    width: 80%;
+    margin: auto;
+}
+
+.block-title{
+    font-size: 20px;
+    text-align: end;
+    margin-bottom: 15px;
+}
+.task-list{
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}

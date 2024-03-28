@@ -1,17 +1,17 @@
 import TaskItem from "./TaskItem";
 
 import "./styles/tasksList.css"
+import useStore from "../../../store/store";
 
 
 function ExpireTasksList(){
 
-    let tasks: { name: string, id: number }[] = [
-        { name: "Task 1", id: 1 },
-        { name: "Task 2", id: 2 },
-        { name: "Task 3", id: 3 },
-    ];
 
-    const displayedTasks = tasks.slice(0, 3);
+    const { lastAddedTasks } = useStore((state) => ({
+        lastAddedTasks: state.lastAddedTasks
+    }));
+
+    const displayedTasks = lastAddedTasks.slice(0, 3);
 
 
     return(
@@ -26,7 +26,7 @@ function ExpireTasksList(){
                         <TaskItem name={task.name} id={task.id}></TaskItem>
                     </div>
                 ))}
-                {tasks.length === 0 && <div>Empty</div>}
+                {lastAddedTasks.length === 0 && <div>Empty</div>}
             </div>
         </div>
     )
