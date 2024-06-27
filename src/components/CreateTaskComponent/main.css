@@ -1,0 +1,7 @@
+.create-task-modal{
+    position: absolute;
+    opacity: 0.5;
+    background-color: black;
+    height: 100%;
+    width: 100%;
+}

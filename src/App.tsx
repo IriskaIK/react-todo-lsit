@@ -2,14 +2,21 @@ import React from 'react';
 import './App.css';
 import Menu from "./components/NavigationMenu/Menu";
 import ListMainContainer from "./components/ListComponent/ListMainContainer";
-import TaskEditorContainer from "./components/TaskEditor/TaskEditorContainer";
+import CreateTaskModal from "./components/CreateTaskComponent/CreateTaskModal";
+
+
+import useStore from "./store/store";
 
 function App() {
-  return (
+
+    const {isModalOpen, toggleIsModalOpen} = useStore()
+
+
+    return (
     <div className="App">
         <Menu></Menu>
-        <TaskEditorContainer></TaskEditorContainer>
-        {/*<ListMainContainer></ListMainContainer>*/}
+        <ListMainContainer></ListMainContainer>
+        {isModalOpen && <CreateTaskModal></CreateTaskModal>}
     </div>
   );
 }

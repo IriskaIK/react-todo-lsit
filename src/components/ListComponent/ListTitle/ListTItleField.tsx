@@ -12,7 +12,7 @@ type TitleProps = {
 
 function ListTitleField(props: TitleProps){
     return (
-        <div>
+        <div className="list-title-container">
 
             <div className="list-title">
                 {props.title}
