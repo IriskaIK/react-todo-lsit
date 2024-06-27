@@ -2,7 +2,6 @@ import ListTitleField from "./ListTitle/ListTItleField";
 import "./main.css"
 import TaskBlock from "./TasksBlock/TaskBlock";
 import { TaskData } from './types';
-import useStore from "../../store/store";
 
 const tasks: TaskData[] = [
     { name: "Task 1", id: 1, expireDate: "2024-03-26", status : true},

@@ -1,7 +1,7 @@
 import TaskItem from "./TaskItem";
 
 import "./styles/tasksList.css"
-import useStore from "../../../store/store";
+import useStore from "../../../store/useTaskStore";
 
 
 function ExpireTasksList(){

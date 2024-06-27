@@ -1,11 +1,8 @@
-
-import './nameInput.css'
-import Button from "../../buttons/Button";
-import React, {useState} from "react";
 import useModalStore from "../../../store/modalStore";
+import React, {useState} from "react";
+import Button from "../../buttons/Button";
 
-function NameInput(){
-
+function DescriptionInput(){
     const {changeModalStatus, toggleIsModalOpen, currentModalStatus} = useModalStore()
 
 
@@ -17,7 +14,7 @@ function NameInput(){
     }
 
     function onPrevStepClick(){
-        return
+        changeModalStatus("name")
     }
     function onNextStepClick(){
         changeModalStatus("description")
@@ -40,7 +37,7 @@ function NameInput(){
                     <input
                         type="text"
                         className="modal-name-input"
-                        placeholder="Type task name"
+                        placeholder="Type desctiption"
                         value={inputValue}
                         onChange={onInputChange}
                     />
@@ -64,11 +61,13 @@ function NameInput(){
                     buttonText="Next step"
                     size="big"
                     textColor="green"
-                    unavailable={(inputValue.length == 0)}
+                    unavailable={(inputValue.length === 0)}
                 ></Button>
             </div>
         </div>
     )
+
 }
 
-export default NameInput;
+
+export default DescriptionInput;

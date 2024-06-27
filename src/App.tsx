@@ -5,11 +5,11 @@ import ListMainContainer from "./components/ListComponent/ListMainContainer";
 import CreateTaskModal from "./components/CreateTaskComponent/CreateTaskModal";
 
 
-import useStore from "./store/store";
+import useModalStore from "./store/modalStore";
 
 function App() {
 
-    const {isModalOpen, toggleIsModalOpen} = useStore()
+    const {isModalOpen} = useModalStore()
 
 
     return (
