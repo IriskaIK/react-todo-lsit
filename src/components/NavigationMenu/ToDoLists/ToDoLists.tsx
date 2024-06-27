@@ -3,7 +3,7 @@ import ListItem from "./ListItem";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faCircleArrowDown} from "@fortawesome/free-solid-svg-icons";
-import useStore from "../../../store/useTaskStore";
+import useStore from "../../../store/taskStore";
 
 function ToDoLists(){
 

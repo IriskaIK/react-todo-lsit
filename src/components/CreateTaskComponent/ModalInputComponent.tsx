@@ -1,6 +1,6 @@
-import './nameInput.css'
+import './main.css'
 import React, {useState} from "react";
-import useModalStore from "../../../store/modalStore";
+import useModalStore from "../../store/modalStore";
 import ModalInputControlBtns from "./ModalInputControlBtns";
 
 
@@ -11,10 +11,14 @@ type modalProps = {
 
 function ModalInputComponent(props: modalProps) {
 
-    const {changeModalStatus, toggleIsModalOpen, currentModalStatus} = useModalStore()
-
-
-    const [inputValue, setInputValue] = useState<string>("")
+    const {
+        changeModalStatus,
+        toggleIsModalOpen,
+        currentModalStatus,
+        changeModalStatusForward,
+        changeModalStatusBackward,
+        newTask
+    } = useModalStore()
 
     function onCancelClick() {
         toggleIsModalOpen()
@@ -22,16 +26,14 @@ function ModalInputComponent(props: modalProps) {
     }
 
     function onPrevStepClick() {
-        return
+        changeModalStatusBackward()
     }
 
     function onNextStepClick() {
-        changeModalStatus("description")
+        changeModalStatusForward()
     }
 
-    function onInputChange(e: React.ChangeEvent<HTMLInputElement>) {
-        setInputValue(e.target.value)
-    }
+
 
 
     return (
@@ -42,14 +44,13 @@ function ModalInputComponent(props: modalProps) {
                 </div>
             </div>
             {props.children}
-
             <div className="btns-holder">
                 <ModalInputControlBtns
                     onCancelClick={onCancelClick}
                     onPrevStepClick={onPrevStepClick}
                     onNextStepClick={onNextStepClick}
                     currentModalStatus={currentModalStatus}
-                    inputValue={inputValue}></ModalInputControlBtns>
+                    newTask={newTask}></ModalInputControlBtns>
             </div>
         </div>
     )

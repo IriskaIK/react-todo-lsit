@@ -6,3 +6,32 @@
     display: flex;
 }
 
+.modal-container{
+    opacity: 1;
+    width: 420px;
+    height: 390px;
+    margin: auto;
+    background-color: #A0A0A0;
+    border-radius: 10px;
+    position: relative;
+}
+.modal-title{
+    font-size: 36px;
+}
+.modal-title-container{
+    justify-content: center;
+    display: flex;
+    width: 70%;
+    margin: 20px auto auto;
+}
+.btns-holder{
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: auto;
+
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    bottom: 20px;
+}
