@@ -1,5 +1,5 @@
 import './main.css'
-import React, {useState} from "react";
+import React from "react";
 import useModalStore from "../../store/modalStore";
 import ModalInputControlBtns from "./ModalInputControlBtns";
 
@@ -17,11 +17,13 @@ function ModalInputComponent(props: modalProps) {
         currentModalStatus,
         changeModalStatusForward,
         changeModalStatusBackward,
+        resetNewTask,
         newTask
     } = useModalStore()
 
     function onCancelClick() {
         toggleIsModalOpen()
+        resetNewTask()
         changeModalStatus("closed")
     }
 

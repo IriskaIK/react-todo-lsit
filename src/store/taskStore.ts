@@ -29,6 +29,8 @@ type State = {
     deleteTask: (listId: number, taskId: number) => void;
 };
 
+// ts is fucking with me
+// @ts-ignore
 const useStore = create<State>()(
     devtools(
         (set) => ({

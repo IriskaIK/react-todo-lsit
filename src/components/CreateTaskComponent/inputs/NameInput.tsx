@@ -1,7 +1,6 @@
-import './nameInput.css'
-import React, {useState} from "react";
+import './inputs.css'
+import React from "react";
 import useModalStore from "../../../store/modalStore";
-
 
 
 

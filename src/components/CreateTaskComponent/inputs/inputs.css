@@ -1,0 +1,115 @@
+
+.modal-input-container{
+    justify-content: center;
+    display: flex;
+    margin: 20px auto auto;
+    width: 70%;
+}
+
+
+.modal-name-input-holder{
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    height: 42px;
+    width: 100%;
+    border-radius: 10px;
+    background-color: #D9D9D9;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+    transition: box-shadow .1s linear;
+
+}
+.modal-name-input-holder:hover{
+    box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.25);
+}
+
+.modal-name-input{
+    font-size: 16px;
+    all: unset;
+    width: 90%;
+    margin: auto 10px auto auto;
+
+}
+.modal-name-input::placeholder {
+    color: #AEAEAE;
+    font-size: 16px;
+}
+
+.modal-desc-input{
+    font-size: 16px;
+    width: 90%;
+    height: 90%;
+    max-width: 100%;
+    resize: unset;
+    border: 0;
+    background: inherit;
+}
+
+.modal-desc-input:focus-visible{
+    outline: 0;
+}
+.modal-desc-input::placeholder {
+    color: #AEAEAE;
+    font-size: 16px;
+}
+
+.modal-desc-input-holder{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    height: 200px;
+    width: 100%;
+    border-radius: 10px;
+    background-color: #D9D9D9;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+    transition: box-shadow .1s linear;
+}
+.modal-name-input-holder:hover{
+    box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.25);
+}
+
+
+.modal-deadline-input-holder{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    height: 42px;
+    width: 100%;
+    border-radius: 10px;
+    background-color: #D9D9D9;
+    box-shadow: 1px 2px 4px rgba(0, 0, 0, 0.25);
+    transition: box-shadow .1s linear;
+}
+
+.modal-deadline-input-holder:hover{
+    box-shadow: 2px 3px 5px rgba(0, 0, 0, 0.25);
+
+}
+
+
+.modal-deadline-input{
+    margin: 0 5px;
+    font-size: 16px;
+    resize: unset;
+    border: 0;
+    background: inherit;
+}
+
+.modal-deadline-input:focus-visible{
+    outline: 0;
+}
+.modal-deadline-input::placeholder {
+    color: #AEAEAE;
+    font-size: 16px;
+}
+
+/*List selection*/
+
+.list-selection-container{
+    width: 80%;
+    margin: auto;
+}

@@ -1,13 +1,10 @@
 import NameInput from "./inputs/NameInput";
 import DescriptionInput from "./inputs/DescriptionInput";
-
-
-
+import DeadlineInput from "./inputs/DeadlineInput";
+import ListSelectionInput from "./inputs/ListSelectionInput";
 import './main.css'
 import useModalStore from "../../store/modalStore";
 import ModalInputComponent from "./ModalInputComponent";
-import React, {useState} from "react";
-
 
 
 function CreateTaskModal(){
@@ -24,6 +21,10 @@ function CreateTaskModal(){
                 return <NameInput></NameInput>
             case "description":
                 return <DescriptionInput></DescriptionInput>
+            case "deadline":
+                return <DeadlineInput></DeadlineInput>
+            case "list selection":
+                return <ListSelectionInput></ListSelectionInput>
         }
     }
 
@@ -31,9 +32,7 @@ function CreateTaskModal(){
 
     return (
         <div className="create-task-modal">
-            {/*{renderInput()}*/}
-
-            <ModalInputComponent modalTitle="Task title">
+            <ModalInputComponent modalTitle={"Task " + currentModalStatus}>
                 {renderInput()}
             </ModalInputComponent>
 

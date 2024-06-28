@@ -1,19 +1,25 @@
 import Button from "../buttons/Button";
 import React, {useEffect, useState} from "react";
+import {SingleValue} from "react-select";
 
 type newTaskData = {
     name: string,
     description: string,
     deadline: string,
     listId: number | undefined,
-    listName: string,
+    listName: string | SingleValue<Option>,
 }
+interface Option {
+    readonly label: string;
+    readonly value: string;
+}
+
 type controlBtnsProps = {
     onCancelClick(): void,
     onPrevStepClick(): void,
     onNextStepClick(): void,
     currentModalStatus: string,
-    newTask: newTaskData,
+    newTask: newTaskData ,
 
 }
 
@@ -35,6 +41,12 @@ function ModalInputControlBtns({
             case "description":
                 setCurrentStateInputValid(newTask.description.length !==0)
                 return
+            case "deadline":
+                setCurrentStateInputValid(newTask.deadline.length !==0)
+                return;
+            case "list selection":
+                setCurrentStateInputValid(newTask.listName !== null)
+                return;
         }
     }, [newTask, currentModalStatus]);
 
@@ -54,7 +66,7 @@ function ModalInputControlBtns({
                 textColor="blue"></Button>
             <Button
                 onClick={onNextStepClick}
-                buttonText="Next step"
+                buttonText={(currentModalStatus === "list selection") ? ("Create") : ("Next step")}
                 size="big"
                 textColor="green"
                 unavailable={!isCurrentStateInputValid}

@@ -5,41 +5,51 @@ import {mountStoreDevtool} from 'simple-zustand-devtools';
 // Define types for list and task
 
 
-type ModalStatuses = "closed" | "name" | "description" | "deadline" | "listSelection" | "listCreation"
-const modalStatusOrder: ModalStatuses[] = ["closed", "name", "description", "deadline", "listSelection"];
+type ModalStatuses = "closed" | "name" | "description" | "deadline" | "list selection"
+const modalStatusOrder: ModalStatuses[] = ["closed", "name", "description", "deadline", "list selection"];
+
+
+interface Option {
+    readonly label: string;
+    readonly value: string;
+}
 
 type newTaskData = {
     name: string,
     description: string,
     deadline: string,
     listId: number | undefined,
-    listName: string,
+    listName: Option | null,
 }
+
 
 type State = {
 
     isModalOpen: boolean;
     newTask: newTaskData;
-    currentModalStatus: "closed" | "name" | "description" | "deadline" | "listSelection" | "listCreation",
+    currentModalStatus: ModalStatuses,
     toggleIsModalOpen: () => void;
     changeModalStatus: (nextStatus: ModalStatuses) => void;
     changeModalStatusForward: () => void;
     changeModalStatusBackward: () => void;
     setTaskName: (value: string) => void;
     setTaskDescription: (value: string) => void;
+    setTaskDeadline: (value: string) => void;
+    setTaskListName : (value: Option | null) => void;
+    resetNewTask: () => void;
 };
-
+// ts is fucking with me
+// @ts-ignore
 const useModalStore = create<State>()(
     devtools(
         (set) => ({
-
             isModalOpen: false,
             newTask: {
                 name: '',
                 description: '',
                 deadline: '',
                 listId: undefined,
-                listName: ''
+                listName: null
             },
             currentModalStatus: "closed",
             toggleIsModalOpen: () =>
@@ -87,8 +97,35 @@ const useModalStore = create<State>()(
                         listName: state.newTask.listName
                     }
                 })),
-
-
+            setTaskDeadline: (value: string) =>
+                set((state) => ({
+                    newTask: {
+                        name: state.newTask.name,
+                        description: state.newTask.description,
+                        deadline: value,
+                        listId: state.newTask.listId,
+                        listName: state.newTask.listName
+                    }
+                })),
+            setTaskListName: (value: Option | null) =>
+                set((state) => ({
+                    newTask: {
+                        name: state.newTask.name,
+                        description: state.newTask.description,
+                        deadline: state.newTask.deadline,
+                        listId: state.newTask.listId,
+                        listName: value
+                    }
+                })),
+            resetNewTask: () => set(() => ({
+                newTask : {
+                    name: '',
+                    description: '',
+                    deadline: '',
+                    listId: undefined,
+                    listName: null
+                }
+            }))
         })));
 
 mountStoreDevtool('modalStore', useModalStore)
