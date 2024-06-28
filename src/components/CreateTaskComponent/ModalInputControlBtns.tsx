@@ -6,8 +6,8 @@ type newTaskData = {
     name: string,
     description: string,
     deadline: string,
-    listId: number | undefined,
-    listName: string | SingleValue<Option>,
+    listId: string | null,
+    listName: string | null,
 }
 interface Option {
     readonly label: string;

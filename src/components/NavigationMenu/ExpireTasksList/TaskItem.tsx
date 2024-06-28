@@ -5,7 +5,7 @@ import "./styles/taskItem.css"
 
 type TaskProps = {
     name : string,
-    id : number
+    id : string
 }
 
 

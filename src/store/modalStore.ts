@@ -8,20 +8,13 @@ import {mountStoreDevtool} from 'simple-zustand-devtools';
 type ModalStatuses = "closed" | "name" | "description" | "deadline" | "list selection"
 const modalStatusOrder: ModalStatuses[] = ["closed", "name", "description", "deadline", "list selection"];
 
-
-interface Option {
-    readonly label: string;
-    readonly value: string;
-}
-
 type newTaskData = {
     name: string,
     description: string,
     deadline: string,
-    listId: number | undefined,
-    listName: Option | null,
+    listId: string | null,
+    listName: string | null,
 }
-
 
 type State = {
 
@@ -35,7 +28,8 @@ type State = {
     setTaskName: (value: string) => void;
     setTaskDescription: (value: string) => void;
     setTaskDeadline: (value: string) => void;
-    setTaskListName : (value: Option | null) => void;
+    setTaskListName: (value: string | null) => void;
+    setTaskListId: (value: string | null) => void;
     resetNewTask: () => void;
 };
 // ts is fucking with me
@@ -48,7 +42,7 @@ const useModalStore = create<State>()(
                 name: '',
                 description: '',
                 deadline: '',
-                listId: undefined,
+                listId: null,
                 listName: null
             },
             currentModalStatus: "closed",
@@ -107,7 +101,7 @@ const useModalStore = create<State>()(
                         listName: state.newTask.listName
                     }
                 })),
-            setTaskListName: (value: Option | null) =>
+            setTaskListName: (value: string | null) =>
                 set((state) => ({
                     newTask: {
                         name: state.newTask.name,
@@ -117,12 +111,24 @@ const useModalStore = create<State>()(
                         listName: value
                     }
                 })),
+            setTaskListId: (value: string | null) =>
+                set((state) => ({
+                    newTask: {
+                        name: state.newTask.name,
+                        description: state.newTask.description,
+                        deadline: state.newTask.deadline,
+                        listId: value,
+                        listName: state.newTask.listName
+                    }
+                })),
+
+
             resetNewTask: () => set(() => ({
-                newTask : {
+                newTask: {
                     name: '',
                     description: '',
                     deadline: '',
-                    listId: undefined,
+                    listId: null,
                     listName: null
                 }
             }))

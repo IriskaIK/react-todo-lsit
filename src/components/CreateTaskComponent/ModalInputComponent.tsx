@@ -2,6 +2,7 @@ import './main.css'
 import React from "react";
 import useModalStore from "../../store/modalStore";
 import ModalInputControlBtns from "./ModalInputControlBtns";
+import useTaskStore from "../../store/taskStore";
 
 
 type modalProps = {
@@ -21,6 +22,12 @@ function ModalInputComponent(props: modalProps) {
         newTask
     } = useModalStore()
 
+    const {
+        addList,
+        addTask
+    } = useTaskStore()
+
+
     function onCancelClick() {
         toggleIsModalOpen()
         resetNewTask()
@@ -33,6 +40,19 @@ function ModalInputComponent(props: modalProps) {
 
     function onNextStepClick() {
         changeModalStatusForward()
+    }
+
+    function onCreateClick(){
+        if(newTask.listName && newTask.listId){
+            const listId = addList(newTask.listName, newTask.listId)
+            addTask(listId, newTask.name, newTask.description, newTask.deadline)
+
+            resetNewTask()
+            toggleIsModalOpen()
+
+        }
+
+
     }
 
 
@@ -50,7 +70,7 @@ function ModalInputComponent(props: modalProps) {
                 <ModalInputControlBtns
                     onCancelClick={onCancelClick}
                     onPrevStepClick={onPrevStepClick}
-                    onNextStepClick={onNextStepClick}
+                    onNextStepClick={(currentModalStatus==='list selection')?onCreateClick:onNextStepClick}
                     currentModalStatus={currentModalStatus}
                     newTask={newTask}></ModalInputControlBtns>
             </div>

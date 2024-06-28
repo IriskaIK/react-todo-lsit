@@ -5,7 +5,7 @@ import "./styles/listItem.css"
 
 type ListProps = {
     name : string,
-    id : number
+    id : string
 }
 
 function ListItem(props: ListProps){

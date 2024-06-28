@@ -1,13 +1,13 @@
 import TaskItem from "./TaskItem";
 
 import "./styles/tasksList.css"
-import useStore from "../../../store/taskStore";
+import useTaskStore from "../../../store/taskStore";
 
 
 function ExpireTasksList(){
 
 
-    const { lastAddedTasks } = useStore((state) => ({
+    const { lastAddedTasks } = useTaskStore((state) => ({
         lastAddedTasks: state.lastAddedTasks
     }));
 
