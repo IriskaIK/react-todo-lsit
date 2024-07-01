@@ -1,11 +1,10 @@
 import "./taskBlock.css"
 import TaskItem from "./TaskItem";
-import {TaskData} from "../types";
-
+import {Task} from "../../../types/taskType";
 
 type TaskBlockProps = {
     title : string,
-    tasks : TaskData[]
+    tasks : Task[]
 }
 
 function TaskBlock(props: TaskBlockProps){
@@ -21,7 +20,7 @@ function TaskBlock(props: TaskBlockProps){
                 { props.tasks.map((task, index) => (
 
                     <div key={index}>
-                        <TaskItem name={task.name} id={task.id} expireDate={task.expireDate} status={task.status}></TaskItem>
+                        <TaskItem name={task.name} id={task.id} deadline={task.deadline} status={task.status}></TaskItem>
                     </div>
                 ))}
 

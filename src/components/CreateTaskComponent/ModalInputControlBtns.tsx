@@ -1,6 +1,5 @@
 import Button from "../buttons/Button";
 import React, {useEffect, useState} from "react";
-import {SingleValue} from "react-select";
 
 type newTaskData = {
     name: string,
@@ -8,10 +7,6 @@ type newTaskData = {
     deadline: string,
     listId: string | null,
     listName: string | null,
-}
-interface Option {
-    readonly label: string;
-    readonly value: string;
 }
 
 type controlBtnsProps = {

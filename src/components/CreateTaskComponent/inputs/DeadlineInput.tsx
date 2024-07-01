@@ -17,6 +17,7 @@ function DeadlineInput() {
                     type="datetime-local"
                     onChange={onInputChange}
                     value={newTask.deadline}
+                    min={new Date().toISOString().slice(0, -8)}
                     className="modal-deadline-input" placeholder="Description of the task (optional)"/>
             </div>
         </div>

@@ -1,12 +1,13 @@
 import "./listField.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faPen} from "@fortawesome/free-solid-svg-icons";
+import {format} from "date-fns";
 
 
 type TitleProps = {
     title : string,
-    updatedAt : string,
-    createdAt : string
+    updatedAt : Date,
+    createdAt : Date
 }
 
 
@@ -22,10 +23,10 @@ function ListTitleField(props: TitleProps){
 
             <div className="time-stamps">
                 <div className="date-field">
-                    Updated at: {props.updatedAt}
+                    Updated at: {format(props.updatedAt, "dd/MM/yyyy")}
                 </div>
                 <div className="date-field">
-                    Created at: {props.createdAt}
+                    Created at: {format(props.createdAt, "dd/MM/yyyy")}
                 </div>
             </div>
 

@@ -35,7 +35,7 @@ const defaultOptions: Option[] = [
 function ListSelectionInput() {
 
 
-    const {newTask, setTaskListName, setTaskListId} = useModalStore()
+    const {setTaskListName, setTaskListId, newTask} = useModalStore()
     const {lists} = useTaskStore()
 
     const [options, setOptions] = useState(defaultOptions);
@@ -47,11 +47,19 @@ function ListSelectionInput() {
         } else {
             setTaskListName(null)
         }
-    }, [currentList]);
+    }, [currentList, setTaskListName]);
+
+
+    useEffect(() => {
+        if(newTask.listId && newTask.listName){
+            setCurrentList({value:newTask.listId, label:newTask.listName})
+        }
+    }, );
+
 
     useEffect(() => {
         setOptions(transformListToOptions(lists))
-    }, []);
+    }, [lists]);
 
 
     const handleCreate = (inputValue: string) => {

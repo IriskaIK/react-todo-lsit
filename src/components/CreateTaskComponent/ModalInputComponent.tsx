@@ -24,7 +24,9 @@ function ModalInputComponent(props: modalProps) {
 
     const {
         addList,
-        addTask
+        addTask,
+        setCurrentList,
+        currentList
     } = useTaskStore()
 
 
@@ -47,7 +49,10 @@ function ModalInputComponent(props: modalProps) {
             const listId = addList(newTask.listName, newTask.listId)
             addTask(listId, newTask.name, newTask.description, newTask.deadline)
 
+            if(currentList?.id === listId) setCurrentList(currentList.id)
+
             resetNewTask()
+            changeModalStatus("closed")
             toggleIsModalOpen()
 
         }

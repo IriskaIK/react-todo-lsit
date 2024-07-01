@@ -2,16 +2,21 @@ import {create} from 'zustand';
 import {devtools} from "zustand/middleware";
 import {mountStoreDevtool} from 'simple-zustand-devtools';
 import {v4 as uuidv4} from 'uuid';
+import * as dateFns from 'date-fns';
 
 
-import {Task} from "../types/taskType";
+import {Task, TaskByCreationDate} from "../types/taskType";
 import {List} from "../types/listType";
-import getCurrentDate from "./taskStore.helper";
+
 
 
 type State = {
     lists: List[];
     lastAddedTasks: Task[];
+    currentList: List | null;
+    getTasksByCreationDate: (listId: string) => TaskByCreationDate | null;
+    setCurrentList : (listId: string) => void;
+    unsetCurrentList : () => void;
     addList: (name: string, listId: string) => string;
     editList: (id: string, name: string) => void;
     deleteList: (id: string) => void;
@@ -28,60 +33,73 @@ type State = {
 // @ts-ignore
 const useTaskStore = create<State>()(
     devtools(
-        (set) => ({
-            lists: [
-                {id: '1', name: 'List 1', tasks: []},
-                {id: '2', name: 'List 2', tasks: []},
-                {id: '3', name: 'List 3', tasks: []},
-            ],
-            lastAddedTasks: [
-                {
-                    id: '1',
-                    name: 'Task 1',
-                    createdAt: "10 Jun 2024",
-                    updatedAt: "10 Jun 2024",
-                    status: false,
-                    expireDate: '2024-03-27',
-                    description: '',
-                    deadline: ''
-                },
-                {
-                    id: '2',
-                    name: 'Task 2',
-                    createdAt: "15 Jun 2024",
-                    updatedAt: "15 Jun 2024",
-                    status: true,
-                    expireDate: '2024-03-30',
-                    description: '',
-                    deadline: ''
-                },
-                {
-                    id: '3',
-                    name: 'Task 3',
-                    createdAt: "20 Jun 2024",
-                    updatedAt: "20 Jun 2024",
-                    status: false,
-                    expireDate: '2024-04-05',
-                    description: '',
-                    deadline: ''
-                },
-                {
-                    id: '4',
-                    name: 'Task 4',
-                    createdAt: "25 Jun 2024",
-                    updatedAt: "25 Jun 2024",
-                    status: true,
-                    expireDate: '2024-04-10',
-                    description: '',
-                    deadline: ''
-                },
-            ],
-            addList: (name: string, listId: string) => {
+        (set, get) => ({
+            lists: [],
+            lastAddedTasks: [],
+            currentList : null,
 
-                set((state) => ({
-                    lists: [...state.lists, {id: listId, name, tasks: []}],
-                }))
-                return listId
+            setCurrentList : (listId: string) =>{
+                const { lists } = get();
+                const existingList = lists.find(list => list.id === listId);
+                if(!existingList){
+                    console.log('list doesnt exist wtf?')
+                    return;
+                }
+                set({currentList : existingList})
+            },
+            unsetCurrentList : () =>{
+                set({currentList: null})
+            },
+            getTasksByCreationDate: (listId: string) => {
+                const { lists } = get();
+                const list = lists.find(list => list.id === listId);
+                if (!list) {
+                    return null;
+                }
+
+                const now = new Date();
+                const taskCreatedToday: Task[] = [];
+                const taskCreatedMoreThanDayAgo: Task[] = [];
+                const taskCreatedMoreThanWeekAgo: Task[] = [];
+
+                list.tasks.forEach(task => {
+                    const createdAt = new Date(task.createdAt);
+                    const daysDifference = dateFns.differenceInDays(now, createdAt);
+
+                    if (daysDifference === 0) {
+                        taskCreatedToday.push(task);
+                    } else if (daysDifference > 0 && daysDifference <= 7) {
+                        taskCreatedMoreThanDayAgo.push(task);
+                    } else if (daysDifference > 7) {
+                        taskCreatedMoreThanWeekAgo.push(task);
+                    }
+                });
+
+                return {
+                    taskCreatedToday:  taskCreatedToday,
+                    taskCreatedMoreThanDayAgo: taskCreatedMoreThanDayAgo,
+                    taskCreatedMoreThanWeekAgo: taskCreatedMoreThanWeekAgo,
+                };
+            },
+
+
+            addList: (name: string, listId: string) => {
+                const { lists } = get();
+                const existingList = lists.find(list => list.id === listId);
+                if (existingList) {
+                    return listId;
+                } else {
+                    const currentTime = new Date()
+                    const newList: List = {
+                        id: listId,
+                        name: name,
+                        tasks: [],
+                        createdAt : currentTime,
+                        updatedAt : currentTime
+                    };
+                    set({ lists: [...lists, newList] });
+                    return listId;
+                }
             },
             editList: (id, name) =>
                 set((state) => ({
@@ -95,7 +113,7 @@ const useTaskStore = create<State>()(
                 })),
             addTask: (listId: string, name: string, description: string, deadline: string) => {
                 const taskId: string = uuidv4()
-                const currentTime = getCurrentDate()
+                const currentTime = new Date()
                 const newTask: Task = {
                     id: taskId, name: name, description: description,
                     deadline: deadline, createdAt: currentTime,

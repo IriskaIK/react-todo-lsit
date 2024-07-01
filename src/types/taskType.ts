@@ -3,7 +3,12 @@ export type Task = {
     name: string;
     description : string;
     deadline : string;
-    createdAt: string;
-    updatedAt: string;
+    createdAt: Date;
+    updatedAt: Date;
     status: boolean;
+};
+export type TaskByCreationDate = {
+    taskCreatedToday: Task[];
+    taskCreatedMoreThanDayAgo: Task[];
+    taskCreatedMoreThanWeekAgo: Task[];
 };

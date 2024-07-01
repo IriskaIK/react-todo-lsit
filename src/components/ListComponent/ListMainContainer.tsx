@@ -1,31 +1,60 @@
 import ListTitleField from "./ListTitle/ListTItleField";
 import "./main.css"
 import TaskBlock from "./TasksBlock/TaskBlock";
-import { TaskData } from './types';
-
-const tasks: TaskData[] = [
-    { name: "Task 1", id: 1, expireDate: "2024-03-26", status : true},
-    { name: "Task 2", id: 2, expireDate: "2024-03-27", status : true},
-    // Add more tasks as needed
-];
+import useTaskStore from "../../store/taskStore";
+import {useEffect, useState} from "react";
+import {TaskByCreationDate} from "../../types/taskType";
 
 function ListMainContainer(){
 
+    const {currentList, getTasksByCreationDate} = useTaskStore()
+    const [tasksByDate, setTasksByDate] = useState<TaskByCreationDate>()
+
+    useEffect(() => {
+        if(currentList?.id){
+            const tasks = getTasksByCreationDate(currentList?.id)
+            if(tasks){
+                setTasksByDate(tasks)
+            }
+
+        }
+    }, [getTasksByCreationDate, currentList]);
+
     return (
         <div className="list-info">
-            <ListTitleField title="List 1" updatedAt="10 Jun 2024" createdAt="10 Jun 2024"></ListTitleField>
+            {(currentList && tasksByDate) ?
+                <>
+                    <ListTitleField title={currentList.name} updatedAt={currentList.updatedAt} createdAt={currentList.createdAt}></ListTitleField>
+                    {tasksByDate.taskCreatedToday.length > 0 ?
+                        <>
+                            <TaskBlock title="Today" tasks={tasksByDate.taskCreatedToday}></TaskBlock>
 
-            <TaskBlock title="Today" tasks={tasks}></TaskBlock>
+                            <hr className="splitter-task-list"/>
+                        </>
+                        : <></>
+                    }
+                    {tasksByDate.taskCreatedMoreThanDayAgo.length > 0 ?
+                        <>
+                            <TaskBlock title="Week ago" tasks={tasksByDate.taskCreatedMoreThanWeekAgo}></TaskBlock>
 
-            <hr className="splitter-task-list"/>
+                            <hr className="splitter-task-list"/>
+                        </>
+                        : <></>
+                    }
+                    {tasksByDate.taskCreatedMoreThanWeekAgo.length > 0 ?
+                        <>
+                            <TaskBlock title="Month ago" tasks={tasksByDate.taskCreatedMoreThanWeekAgo}></TaskBlock>
 
-            <TaskBlock title="Week ago" tasks={tasks}></TaskBlock>
-
-            <hr className="splitter-task-list"/>
-
-            <TaskBlock title="Month ago" tasks={tasks}></TaskBlock>
-
-            <hr className="splitter-task-list"/>
+                            <hr className="splitter-task-list"/>
+                        </>
+                        :<></>
+                    }
+                </>
+                :
+                <>
+                    {/*  some funny gif, when any list isn`t chosen  */}
+                </>
+            }
         </div>
     )
 }
