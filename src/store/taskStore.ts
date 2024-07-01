@@ -1,51 +1,30 @@
 import {create} from 'zustand';
 import {devtools} from "zustand/middleware";
 import {mountStoreDevtool} from 'simple-zustand-devtools';
+import {v4 as uuidv4} from 'uuid';
 
-import { v4 as uuidv4 } from 'uuid';
 
+import {Task} from "../types/taskType";
+import {List} from "../types/listType";
+import getCurrentDate from "./taskStore.helper";
 
-// Define types for list and task
-type Task = {
-    id: string;
-    name: string;
-    description : string;
-    deadline : string;
-    createdAt: string;
-    updatedAt: string;
-    status: boolean;
-};
-
-type List = {
-    id: string;
-    name: string;
-    tasks: Task[];
-};
 
 type State = {
     lists: List[];
     lastAddedTasks: Task[];
-    addList: (name: string, listId:string) => string;
+    addList: (name: string, listId: string) => string;
     editList: (id: string, name: string) => void;
     deleteList: (id: string) => void;
-    addTask: (listId: string, name: string, description: string, deadline : string) => void;
+    addTask: (listId: string, name: string, description: string, deadline: string) => void;
     // editTask: (listId: string, taskId: number, task: Partial<Task>) => void;
     // deleteTask: (listId: string, taskId: number) => void;
 };
 
-function getCurrentDate():string{
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = now.getMonth() + 1;
-    const day = now.getDate();
-    const hours = now.getHours();
-    const minutes = now.getMinutes();
-    return `${year}-${month}-${day} ${hours}:${minutes}`
-}
 
 
 
-// ts is fucking with me
+
+
 // @ts-ignore
 const useTaskStore = create<State>()(
     devtools(
@@ -63,8 +42,8 @@ const useTaskStore = create<State>()(
                     updatedAt: "10 Jun 2024",
                     status: false,
                     expireDate: '2024-03-27',
-                    description : '',
-                    deadline : ''
+                    description: '',
+                    deadline: ''
                 },
                 {
                     id: '2',
@@ -73,8 +52,8 @@ const useTaskStore = create<State>()(
                     updatedAt: "15 Jun 2024",
                     status: true,
                     expireDate: '2024-03-30',
-                    description : '',
-                    deadline : ''
+                    description: '',
+                    deadline: ''
                 },
                 {
                     id: '3',
@@ -83,8 +62,8 @@ const useTaskStore = create<State>()(
                     updatedAt: "20 Jun 2024",
                     status: false,
                     expireDate: '2024-04-05',
-                    description : '',
-                    deadline : ''
+                    description: '',
+                    deadline: ''
                 },
                 {
                     id: '4',
@@ -93,11 +72,12 @@ const useTaskStore = create<State>()(
                     updatedAt: "25 Jun 2024",
                     status: true,
                     expireDate: '2024-04-10',
-                    description : '',
-                    deadline : ''
+                    description: '',
+                    deadline: ''
                 },
             ],
-            addList: (name:string, listId:string ) => {
+            addList: (name: string, listId: string) => {
+
                 set((state) => ({
                     lists: [...state.lists, {id: listId, name, tasks: []}],
                 }))
@@ -113,11 +93,11 @@ const useTaskStore = create<State>()(
                 set((state) => ({
                     lists: state.lists.filter((list) => list.id !== id),
                 })),
-            addTask: (listId:string, name:string, description:string, deadline : string) =>{
-                const taskId : string = uuidv4()
+            addTask: (listId: string, name: string, description: string, deadline: string) => {
+                const taskId: string = uuidv4()
                 const currentTime = getCurrentDate()
-                const newTask:Task = {
-                    id: taskId, name: name, description:description,
+                const newTask: Task = {
+                    id: taskId, name: name, description: description,
                     deadline: deadline, createdAt: currentTime,
                     updatedAt: currentTime, status: false
                 }

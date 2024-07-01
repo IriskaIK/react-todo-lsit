@@ -1,23 +1,32 @@
 import "./inputs.css"
 import React, {useEffect, useState} from "react";
 import Creatable from 'react-select/creatable';
-import {SingleValue} from "react-select";
-import useModalStore from "../../../store/modalStore";
 import { v4 as uuidv4 } from 'uuid';
+import useModalStore from "../../../store/modalStore";
 import useTaskStore from "../../../store/taskStore";
+import {SingleValue} from "react-select";
+import {List} from "../../../types/listType";
+
+
 interface Option {
     readonly label: string;
     readonly value: string;
     // readonly id? : string;
 }
 
-//
 function createOption(label: string): Option {
     const listId : string = uuidv4()
     return {
         label: label,
         value: listId,
     }
+}
+
+function transformListToOptions(listArray: List[]): Option[] {
+    return listArray.map(item => ({
+        label: item.name,
+        value: item.id
+    }));
 }
 
 const defaultOptions: Option[] = [
@@ -39,6 +48,10 @@ function ListSelectionInput() {
             setTaskListName(null)
         }
     }, [currentList]);
+
+    useEffect(() => {
+        setOptions(transformListToOptions(lists))
+    }, []);
 
 
     const handleCreate = (inputValue: string) => {
