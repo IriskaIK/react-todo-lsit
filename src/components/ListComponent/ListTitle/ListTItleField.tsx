@@ -1,7 +1,9 @@
 import "./listField.css"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faPen} from "@fortawesome/free-solid-svg-icons";
+import {faPen, faBan, faCircleCheck} from "@fortawesome/free-solid-svg-icons";
 import {format} from "date-fns";
+import React, {useState} from "react";
+import useTaskStore from "../../../store/taskStore";
 
 
 type TitleProps = {
@@ -12,14 +14,56 @@ type TitleProps = {
 
 
 function ListTitleField(props: TitleProps){
+
+    const {editList, currentList, setCurrentList} = useTaskStore()
+
+    const [isEditing, setIsEditing] = useState(false)
+
+    const [title, setTitle] = useState(props.title)
+
+
+    function handleEditClick(){
+        setIsEditing(true)
+    }
+
+    function handleCloseClick(){
+        setIsEditing(false)
+        setTitle(props.title)
+    }
+
+    function handleInputChange(e: React.ChangeEvent<HTMLInputElement>){
+        setTitle(e.target.value)
+    }
+    function  handleChangeClick(){
+        if(currentList?.id){
+            editList(currentList.id, title)
+            setIsEditing(false)
+            setCurrentList(currentList.id)
+        }
+    }
+
+
     return (
         <div className="list-title-container">
 
-            <div className="list-title">
-                {props.title}
+            {isEditing ?
+                <>
+                    <div className="list-title">
+                        <input onChange={handleInputChange} className="list-title-input" value={title}/>
+                        <FontAwesomeIcon className="edit-icon" icon={faCircleCheck} onClick={handleChangeClick} />
+                        <FontAwesomeIcon className="edit-icon" icon={faBan} onClick={handleCloseClick} />
+                    </div>
 
-                <FontAwesomeIcon className="edit-icon" icon={faPen} />
-            </div>
+                </>
+                :
+                <>
+                    <div className="list-title">
+                        {props.title}
+                        <FontAwesomeIcon className="edit-icon" icon={faPen} onClick={handleEditClick} />
+                    </div>
+                </>
+            }
+
 
             <div className="time-stamps">
                 <div className="date-field">

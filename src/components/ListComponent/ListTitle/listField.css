@@ -18,3 +18,8 @@
     cursor: pointer;
     color: #6390E2;
 }
+
+.list-title-input{
+    all: unset;
+    width: 175px;
+}

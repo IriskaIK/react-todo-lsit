@@ -1,5 +1,5 @@
 import {create} from 'zustand';
-import {devtools} from "zustand/middleware";
+import {devtools, persist} from "zustand/middleware";
 import {mountStoreDevtool} from 'simple-zustand-devtools';
 import {v4 as uuidv4} from 'uuid';
 import * as dateFns from 'date-fns';
@@ -9,49 +9,43 @@ import {Task, TaskByCreationDate} from "../types/taskType";
 import {List} from "../types/listType";
 
 
-
 type State = {
     lists: List[];
     lastAddedTasks: Task[];
     currentList: List | null;
     getTasksByCreationDate: (listId: string) => TaskByCreationDate | null;
-    setCurrentList : (listId: string) => void;
-    unsetCurrentList : () => void;
+    setCurrentList: (listId: string) => void;
+    unsetCurrentList: () => void;
     addList: (name: string, listId: string) => string;
     editList: (id: string, name: string) => void;
     deleteList: (id: string) => void;
     addTask: (listId: string, name: string, description: string, deadline: string) => void;
     // editTask: (listId: string, taskId: number, task: Partial<Task>) => void;
-    // deleteTask: (listId: string, taskId: number) => void;
+    deleteTask: (listId: string, taskId: string) => void;
 };
 
 
-
-
-
-
-// @ts-ignore
 const useTaskStore = create<State>()(
-    devtools(
+    persist(
         (set, get) => ({
             lists: [],
             lastAddedTasks: [],
-            currentList : null,
+            currentList: null,
 
-            setCurrentList : (listId: string) =>{
-                const { lists } = get();
+            setCurrentList: (listId: string) => {
+                const {lists} = get();
                 const existingList = lists.find(list => list.id === listId);
-                if(!existingList){
+                if (!existingList) {
                     console.log('list doesnt exist wtf?')
                     return;
                 }
-                set({currentList : existingList})
+                set({currentList: existingList})
             },
-            unsetCurrentList : () =>{
+            unsetCurrentList: () => {
                 set({currentList: null})
             },
             getTasksByCreationDate: (listId: string) => {
-                const { lists } = get();
+                const {lists} = get();
                 const list = lists.find(list => list.id === listId);
                 if (!list) {
                     return null;
@@ -76,7 +70,7 @@ const useTaskStore = create<State>()(
                 });
 
                 return {
-                    taskCreatedToday:  taskCreatedToday,
+                    taskCreatedToday: taskCreatedToday,
                     taskCreatedMoreThanDayAgo: taskCreatedMoreThanDayAgo,
                     taskCreatedMoreThanWeekAgo: taskCreatedMoreThanWeekAgo,
                 };
@@ -84,7 +78,7 @@ const useTaskStore = create<State>()(
 
 
             addList: (name: string, listId: string) => {
-                const { lists } = get();
+                const {lists} = get();
                 const existingList = lists.find(list => list.id === listId);
                 if (existingList) {
                     return listId;
@@ -94,10 +88,10 @@ const useTaskStore = create<State>()(
                         id: listId,
                         name: name,
                         tasks: [],
-                        createdAt : currentTime,
-                        updatedAt : currentTime
+                        createdAt: currentTime,
+                        updatedAt: currentTime
                     };
-                    set({ lists: [...lists, newList] });
+                    set({lists: [...lists, newList]});
                     return listId;
                 }
             },
@@ -140,17 +134,21 @@ const useTaskStore = create<State>()(
             //                 : list
             //         ),
             //     })),
-            // deleteTask: (listId, taskId) =>
-            //     set((state) => ({
-            //         lists: state.lists.map((list) =>
-            //             list.id === listId
-            //                 ? {...list, tasks: list.tasks.filter((task) => task.id !== taskId)}
-            //                 : list
-            //         ),
-            //     })),
+            deleteTask: (listId, taskId) =>
+                set((state) => ({
+                    lists: state.lists.map((list) =>
+                        list.id === listId
+                            ? {...list, tasks: list.tasks.filter((task) => task.id !== taskId)}
+                            : list
+                    ),
+                })),
+        }),
+        {
+            name: 'task-list-storage',
+        }
+    )
+)
 
-
-        })));
 
 mountStoreDevtool('Store', useTaskStore)
 

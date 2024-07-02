@@ -4,7 +4,7 @@ import {Task} from "../../../types/taskType";
 
 type TaskBlockProps = {
     title : string,
-    tasks : Task[]
+    tasks : Task[],
 }
 
 function TaskBlock(props: TaskBlockProps){
