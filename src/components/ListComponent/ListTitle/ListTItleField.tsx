@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faPen, faBan, faCircleCheck} from "@fortawesome/free-solid-svg-icons";
 import {format} from "date-fns";
 import React, {useState} from "react";
-import useTaskStore from "../../../store/taskStore";
+import useListStore from "../../../store/listsStore";
 
 
 type TitleProps = {
@@ -15,7 +15,7 @@ type TitleProps = {
 
 function ListTitleField(props: TitleProps){
 
-    const {editList, currentList, setCurrentList} = useTaskStore()
+    const {editList, currentList, setCurrentList} = useListStore()
 
     const [isEditing, setIsEditing] = useState(false)
 

@@ -1,13 +1,13 @@
 import ListTitleField from "./ListTitle/ListTItleField";
 import "./main.css"
 import TaskBlock from "./TasksBlock/TaskBlock";
-import useTaskStore from "../../store/taskStore";
+import useListStore from "../../store/listsStore";
 import {useEffect, useState} from "react";
 import {TaskByCreationDate} from "../../types/taskType";
 
 function ListMainContainer(){
 
-    const {currentList, getTasksByCreationDate} = useTaskStore()
+    const {currentList, getTasksByCreationDate} = useListStore()
     const [tasksByDate, setTasksByDate] = useState<TaskByCreationDate>()
 
     useEffect(() => {
@@ -35,7 +35,7 @@ function ListMainContainer(){
                     }
                     {tasksByDate.taskCreatedMoreThanDayAgo.length > 0 ?
                         <>
-                            <TaskBlock title="Week ago" tasks={tasksByDate.taskCreatedMoreThanWeekAgo}></TaskBlock>
+                            <TaskBlock title="Week ago" tasks={tasksByDate.taskCreatedMoreThanDayAgo}></TaskBlock>
 
                             <hr className="splitter-task-list"/>
                         </>

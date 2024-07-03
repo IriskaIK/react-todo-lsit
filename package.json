@@ -19,6 +19,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
+    "react-search-autocomplete": "^8.5.2",
     "react-select": "^5.8.0",
     "simple-zustand-devtools": "^1.1.0",
     "typescript": "^4.9.5",

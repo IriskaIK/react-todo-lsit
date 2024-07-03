@@ -3,11 +3,11 @@ import ListItem from "./ListItem";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {faCircleArrowDown} from "@fortawesome/free-solid-svg-icons";
-import useTaskStore from "../../../store/taskStore";
+import useListStore from "../../../store/listsStore";
 
 function ToDoLists(){
 
-    const { lists } = useTaskStore((state) => ({
+    const { lists } = useListStore((state) => ({
         lists: state.lists
     }));
 

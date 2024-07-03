@@ -3,7 +3,7 @@ import React, {useEffect, useState} from "react";
 import Creatable from 'react-select/creatable';
 import { v4 as uuidv4 } from 'uuid';
 import useModalStore from "../../../store/modalStore";
-import useTaskStore from "../../../store/taskStore";
+import useListStore from "../../../store/listsStore";
 import {SingleValue} from "react-select";
 import {List} from "../../../types/listType";
 
@@ -36,7 +36,7 @@ function ListSelectionInput() {
 
 
     const {setTaskListName, setTaskListId, newTask} = useModalStore()
-    const {lists} = useTaskStore()
+    const {lists} = useListStore()
 
     const [options, setOptions] = useState(defaultOptions);
     const [currentList, setCurrentList] = useState<Option | null>();

@@ -1,9 +1,9 @@
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {faCircleCheck, faEye, faTrash} from "@fortawesome/free-solid-svg-icons";
+import {faCircleCheck, faEye, faTrash, faXmarkCircle} from "@fortawesome/free-solid-svg-icons";
 import {format} from "date-fns"
 import "./taskItem.css"
 import React from "react";
-import useTaskStore from "../../../store/taskStore";
+import useListStore from "../../../store/listsStore";
 
 type Task = {
     id: string;
@@ -13,7 +13,7 @@ type Task = {
 };
 
 function TaskItem(props : Task){
-    const {deleteTask, currentList, setCurrentList} = useTaskStore()
+    const {deleteTask, currentList, setCurrentList, toggleTaskStatus} = useListStore()
 
     function handleOnDeleteClick(e: React.MouseEvent<HTMLElement>){
         e.stopPropagation()
@@ -24,10 +24,28 @@ function TaskItem(props : Task){
 
     }
 
+    function handleOnStatusChangeClick(e: React.MouseEvent<HTMLElement>){
+        e.stopPropagation()
+        if(currentList?.id){
+            toggleTaskStatus(currentList.id, props.id)
+            setCurrentList(currentList.id)
+        }
+
+    }
+
     return (
-        <div className="task-list-item">
+        <div className={"task-list-item" + ((props.status) ? ' complete-task-item' : '')}>
             <div className="task-list-name">
-                <FontAwesomeIcon className="task-list-action-check" icon={faCircleCheck} />
+                { props.status
+                    ?
+                    <div onClick={handleOnStatusChangeClick}>
+                        <FontAwesomeIcon className="task-list-action-cancel" icon={faXmarkCircle}/>
+                    </div>
+                    :
+                    <div onClick={handleOnStatusChangeClick}>
+                        <FontAwesomeIcon className="task-list-action-check" icon={faCircleCheck}/>
+                    </div>
+                }
                 {props.name}
             </div>
 

@@ -1,14 +1,23 @@
+import {ReactSearchAutocomplete} from "react-search-autocomplete";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import {faMagnifyingGlass} from "@fortawesome/free-solid-svg-icons";
 import '../menu.css';
 import './styles/searchBar.css'
-function SearchBar(){
-    return(
-        <div className="search-bar">
-            <FontAwesomeIcon className="search-bar-input-icon" icon={faMagnifyingGlass} />
+import useListStore from "../../../store/listsStore";
+import {Task} from "../../../types/taskType";
 
-                <input className="nav-search-bar" placeholder="Search"/>
+function SearchBar() {
+    const {tasks, setCurrentList} = useListStore()
+
+    function onSelect(item: Task){
+        setCurrentList(item.listId)
+    }
+
+    return (
+        // className="search-bar"
+        <div style={{ width: 200 }}>
+            {/*<FontAwesomeIcon className="search-bar-input-icon" icon={faMagnifyingGlass}/>*/}
+            <ReactSearchAutocomplete<Task> items={tasks} onSelect={onSelect}></ReactSearchAutocomplete>
+            {/*<input className="nav-search-bar" placeholder="Search"/>*/}
 
 
         </div>

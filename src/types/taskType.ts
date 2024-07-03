@@ -6,7 +6,9 @@ export type Task = {
     createdAt: Date;
     updatedAt: Date;
     status: boolean;
+    listId : string;
 };
+
 export type TaskByCreationDate = {
     taskCreatedToday: Task[];
     taskCreatedMoreThanDayAgo: Task[];

@@ -2,7 +2,7 @@ import './main.css'
 import React from "react";
 import useModalStore from "../../store/modalStore";
 import ModalInputControlBtns from "./ModalInputControlBtns";
-import useTaskStore from "../../store/taskStore";
+import useListStore from "../../store/listsStore";
 
 
 type modalProps = {
@@ -27,7 +27,7 @@ function ModalInputComponent(props: modalProps) {
         addTask,
         setCurrentList,
         currentList
-    } = useTaskStore()
+    } = useListStore()
 
 
     function onCancelClick() {

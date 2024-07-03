@@ -1,17 +1,15 @@
 import TaskItem from "./TaskItem";
 
 import "./styles/tasksList.css"
-import useTaskStore from "../../../store/taskStore";
+import useListStore from "../../../store/listsStore";
 
 
 function ExpireTasksList(){
 
 
-    const { lastAddedTasks } = useTaskStore((state) => ({
-        lastAddedTasks: state.lastAddedTasks
-    }));
+    const { getTasksByExpireDate } = useListStore()
 
-    const displayedTasks = lastAddedTasks.slice(0, 3);
+    const displayedTasks = getTasksByExpireDate().slice(0, 7);
 
 
     return(
@@ -20,13 +18,13 @@ function ExpireTasksList(){
                 Soon to expire
             </div>
             <div className="tasks-items-container">
-                { displayedTasks.map((task, index) => (
+                { displayedTasks.map((task) => (
 
-                    <div key={index}>
-                        <TaskItem name={task.name} id={task.id}></TaskItem>
+                    <div key={task.id}>
+                        <TaskItem name={task.name} id={task.id} listId={task.listId}></TaskItem>
                     </div>
                 ))}
-                {lastAddedTasks.length === 0 && <div>Empty</div>}
+                {displayedTasks.length === 0 && <div>Empty</div>}
             </div>
         </div>
     )

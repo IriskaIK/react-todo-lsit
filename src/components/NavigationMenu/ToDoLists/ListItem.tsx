@@ -3,7 +3,7 @@ import {faTrash, faPlus} from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 
 import "./styles/listItem.css"
-import useTaskStore from "../../../store/taskStore";
+import useListStore from "../../../store/listsStore";
 import useModalStore from "../../../store/modalStore";
 
 type ListProps = {
@@ -12,7 +12,7 @@ type ListProps = {
 }
 
 function ListItem(props: ListProps){
-    const {setCurrentList, deleteList, currentList, unsetCurrentList} = useTaskStore()
+    const {setCurrentList, deleteList, currentList, unsetCurrentList} = useListStore()
     const {toggleIsModalOpen, setTaskListId, setTaskListName, changeModalStatus} = useModalStore()
     function handleListClick(e : React.MouseEvent<HTMLElement>){
         e.stopPropagation()

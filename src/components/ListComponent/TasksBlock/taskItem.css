@@ -55,3 +55,16 @@
 .task-list-action-check{
     font-size: 26px;
 }
+
+.task-list-action-cancel{
+    font-size: 26px;
+}
+.task-list-action-cancel:hover{
+    transition: color .1s linear;
+    color: #E14A4A;
+    cursor: pointer;
+}
+.complete-task-item{
+    text-decoration: line-through;
+    opacity: 0.7;
+}
